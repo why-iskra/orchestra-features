@@ -1,10 +1,12 @@
 package ru.unit.orchestra_features.common.support
 
+import java.util.Collections
+
 abstract class Feature<T> {
 
     abstract val state: State<T>
 
-    private val listeners = mutableListOf<Listener<T>>()
+    private val listeners = Collections.synchronizedList(mutableListOf<Listener<T>>())
 
     protected fun onStateUpdated() {
         listeners.forEach { listener ->

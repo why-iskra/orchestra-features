@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "ru.unit.orchestra_features.example.android"
-    compileSdk = 34
+    compileSdk = 33
 
     defaultConfig {
         applicationId = "ru.unit.orchestra_features.example.android"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
     }
@@ -25,8 +25,12 @@ android {
         jvmTarget = "1.8"
     }
 
-    sourceSets.getByName("debug") {
-        kotlin.srcDir("build/generated/ksp/debug/kotlin")
+
+    // libraryVariants
+    applicationVariants.configureEach {
+        this@android.sourceSets.getByName(name) {
+            kotlin.srcDir("$buildDir/generated/ksp/$name/kotlin")
+        }
     }
 
     buildFeatures {
@@ -34,14 +38,18 @@ android {
     }
 }
 
+kotlin {
+    jvmToolchain(8)
+}
+
 dependencies {
     implementation(project(":common"))
     implementation(project(":interactive:android"))
     ksp(project(":processor"))
 
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.fragment:fragment-ktx:1.6.1")
+    implementation("androidx.core:core-ktx:1.8.0")
+    implementation("androidx.appcompat:appcompat:1.4.2")
+    implementation("androidx.fragment:fragment-ktx:1.5.2")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 }

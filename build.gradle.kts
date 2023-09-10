@@ -1,7 +1,24 @@
-plugins {
-    id("com.android.application") version "7.4.2" apply false
-    id("com.android.library") version "7.4.2" apply false
-    id("org.jetbrains.kotlin.android") version "1.8.0-RC2" apply false
-    id("org.jetbrains.kotlin.jvm") version "1.8.0-RC2" apply false
-    id("com.google.devtools.ksp") version "1.8.0-RC2-1.0.8" apply false
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("com.android.tools.build:gradle:7.3.1")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.22")
+        classpath("com.google.devtools.ksp:symbol-processing-gradle-plugin:1.8.22-1.0.11")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.5.2")
+    }
+}
+
+allprojects {
+    group = "ru.unit.orchestra-features"
+    version = "1.0.0"
+
+    repositories {
+        google()
+        mavenCentral()
+    }
 }

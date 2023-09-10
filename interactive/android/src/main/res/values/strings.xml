@@ -1,5 +1,5 @@
 <resources>
-    <string name="feature">Feature</string>
-    <string name="depends_on">Depends on</string>
-    <string name="enable_disable">Enable / Disable</string>
+    <string name="ofia_feature">Feature</string>
+    <string name="ofia_depends_on">Depends on</string>
+    <string name="ofia_enable_disable">Enable / Disable</string>
 </resources>

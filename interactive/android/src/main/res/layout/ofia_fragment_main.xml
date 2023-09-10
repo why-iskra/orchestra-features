@@ -14,7 +14,7 @@
         app:layout_behavior="com.google.android.material.search.SearchBar$ScrollingViewBehavior"
         android:layout_marginBottom="80dp"
         android:scrollbars="vertical"
-        android:scrollbarThumbVertical="@drawable/light_scrollbar_thumb" />
+        android:scrollbarThumbVertical="@drawable/ofia_light_scrollbar_thumb" />
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
@@ -27,7 +27,7 @@
             android:id="@+id/searchBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/feature" />
+            android:hint="@string/ofia_feature" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -35,8 +35,16 @@
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:hint="@string/feature"
+        android:hint="@string/ofia_feature"
         app:layout_anchor="@id/searchBar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.search.SearchBar$ScrollingViewBehavior"
+            android:scrollbars="vertical"
+            android:scrollbarThumbVertical="@drawable/ofia_light_scrollbar_thumb" />
 
     </com.google.android.material.search.SearchView>
 
@@ -66,7 +74,7 @@
                 android:fadingEdgeLength="16dp"
                 android:requiresFadingEdge="vertical"
                 android:scrollbars="vertical"
-                android:scrollbarThumbVertical="@drawable/dark_scrollbar_thumb" />
+                android:scrollbarThumbVertical="@drawable/ofia_dark_scrollbar_thumb" />
 
         </FrameLayout>
 
@@ -117,7 +125,7 @@
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/round_menu_24"
+                app:srcCompat="@drawable/ofia_round_menu_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"

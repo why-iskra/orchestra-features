@@ -1,7 +1,7 @@
 package ru.unit.orchestra_features.processor.generator.code.orchestra.function
 
 import com.squareup.kotlinpoet.CodeBlock
-import ru.unit.orchestra_features.processor.generator.code.orchestra.property.FeatureScopeProperty
+import ru.unit.orchestra_features.processor.generator.code.scope.property.FeatureScopeProperty
 import ru.unit.orchestra_features.processor.generator.code.orchestra.property.ScopeProperty
 import ru.unit.orchestra_features.processor.model.FeatureScopeModel
 

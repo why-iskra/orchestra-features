@@ -1,4 +1,4 @@
-package ru.unit.orchestra_features.common.utils.delegate
+package ru.unit.orchestra_features.common.support.utils.delegate
 
 import kotlin.reflect.KProperty
 

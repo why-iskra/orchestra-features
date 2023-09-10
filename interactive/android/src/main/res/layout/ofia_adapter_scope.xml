@@ -8,7 +8,7 @@
     android:layout_margin="16dp"
     android:layout_height="80dp"
     app:cardBackgroundColor="?attr/colorOnPrimaryContainer"
-    app:rippleColor="?attr/colorRipple"
+    app:rippleColor="?attr/ofia_colorRipple"
     app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,31 +27,12 @@
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/module"
-            app:drawableStartCompat="@drawable/round_alternate_email_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:drawableStartCompat="@drawable/ofia_round_alternate_email_24"
             app:drawableTint="?attr/colorOnBackground"
             android:gravity="center_vertical"
             android:drawablePadding="4dp"
             tools:text="name"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/module"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/colorOnBackground"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-            android:gravity="center_vertical"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:drawableStartCompat="@drawable/round_folder_open_24"
-            app:drawableTint="?attr/colorOnBackground"
-            android:drawablePadding="4dp"
-            tools:text="data"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

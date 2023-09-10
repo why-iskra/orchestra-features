@@ -17,17 +17,24 @@ import ru.unit.orchestra_features.processor.utils.extension.checkName
 import ru.unit.orchestra_features.processor.utils.extension.getAnnotations
 import ru.unit.orchestra_features.processor.utils.extension.getParameter
 
-class FeatureVisitor : KSEmptyVisitor<Unit, FeatureModel?>() {
+class FeatureVisitor : KSEmptyVisitor<Unit, FeatureModel>() {
 
-    override fun defaultHandler(node: KSNode, data: Unit): FeatureModel? = null
+    override fun defaultHandler(node: KSNode, data: Unit) = throw ProcessorException(
+        message = "Wrong feature visitor node",
+        node = node
+    )
 
     @OptIn(KspExperimental::class)
     override fun visitClassDeclaration(
         classDeclaration: KSClassDeclaration,
         data: Unit
-    ): FeatureModel? {
-
-        val featureAnnotation = classDeclaration.getAnnotationsByType(Feature::class).lastOrNull() ?: return null
+    ): FeatureModel {
+        val featureAnnotation = classDeclaration
+            .getAnnotationsByType(Feature::class)
+            .lastOrNull() ?: throw ProcessorException(
+            message = "Cannot found Feature annotation",
+            node = classDeclaration
+        )
 
         val name = featureAnnotation.name.let { name ->
             val result = name.ifBlank {

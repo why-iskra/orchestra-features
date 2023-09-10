@@ -1,15 +1,15 @@
 package ru.unit.orchestra_features.example.jvm
 
-import `app-jvm`.orchestra_features.generated.Orchestra
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import ru.unit.orchestra_features.common.extension.asFlow
+import ru.unit.orchestra_features.example.jvm.orchestra_features.generated.Scope1
 
 fun main(): Unit = runBlocking {
     launch(Dispatchers.IO) {
-        Orchestra.Scope1.awd.asFlow().collect {
+        Scope1.features.awd.asFlow().collect {
             println("-> $it")
         }
     }
@@ -18,12 +18,12 @@ fun main(): Unit = runBlocking {
 
     println("Emit")
 
-    Orchestra.Scope1.awd.toggle(true)
-    Orchestra.Scope1.awd.toggle(false)
-    Orchestra.Scope1.awd.toggle(false)
-    Orchestra.Scope1.awd.toggle(false)
-    Orchestra.Scope1.awd.toggle(true)
-    Orchestra.Scope1.awd.toggle(false)
-    Orchestra.Scope1.awd.toggle(false)
-    Orchestra.Scope1.awd.toggle(false)
+    Scope1.features.awd.toggle(true)
+    Scope1.features.awd.toggle(false)
+    Scope1.features.awd.toggle(false)
+    Scope1.features.awd.toggle(false)
+    Scope1.features.awd.toggle(true)
+    Scope1.features.awd.toggle(false)
+    Scope1.features.awd.toggle(false)
+    Scope1.features.awd.toggle(false)
 }

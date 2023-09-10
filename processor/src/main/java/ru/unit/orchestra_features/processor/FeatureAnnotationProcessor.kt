@@ -43,13 +43,13 @@ class FeatureAnnotationProcessor(
             return
         }
 
-        val featureScopeModels = featureScopeAnnotations.mapNotNull { node ->
+        val featureScopeModels = featureScopeAnnotations.map { node ->
             node.accept(FeatureScopeVisitor(), Unit)
         }
 
-        val files = ru.unit.orchestra_features.processor.generator.Code(
+        val files = Code(
             environment = environment,
-            packageName = packageName(resolver)
+            packageName = PACKAGE
         ).generateFiles(featureScopeModels)
 
         val originalFiles = featureScopeModels.flatMap { featureScopeModel ->
@@ -73,24 +73,8 @@ class FeatureAnnotationProcessor(
         kClass: KClass<*>,
     ) = getSymbolsWithAnnotation(kClass.qualifiedName.toString())
 
-    private fun packageName(resolver: Resolver) = "${getModuleName(resolver)}$PACKAGE_SUFFIX"
-
-    private fun getModuleName(resolver: Resolver): String {
-        val moduleDescriptor = resolver::class.java
-            .getDeclaredField("module")
-            .apply { isAccessible = true }
-            .get(resolver)
-
-        val rawName = moduleDescriptor::class.java
-            .getMethod("getName")
-            .invoke(moduleDescriptor)
-            .toString()
-
-        return rawName.removeSurrounding("<", ">")
-    }
-
     companion object {
 
-        const val PACKAGE_SUFFIX = ".orchestra_features.generated"
+        const val PACKAGE = "orchestra_features.generated"
     }
 }

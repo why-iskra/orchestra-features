@@ -5,16 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.unit.orchestra_features.interactive.android.databinding.AdapterScopeBinding
-import ru.unit.orchestra_features.interactive.android.model.ScopeModel
 import ru.unit.orchestra_features.common.support.interactive.ElementData
+import ru.unit.orchestra_features.interactive.android.databinding.OfiaAdapterScopeBinding
+import ru.unit.orchestra_features.interactive.android.model.ScopeModel
 
 class ScopeAdapter : ListAdapter<ScopeModel, ScopeAdapter.ScopeViewHolder>(callback) {
 
     var listener: Listener? = null
 
     class ScopeViewHolder(
-        private val binding: AdapterScopeBinding
+        private val binding: OfiaAdapterScopeBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindTo(
@@ -22,7 +22,6 @@ class ScopeAdapter : ListAdapter<ScopeModel, ScopeAdapter.ScopeViewHolder>(callb
             listener: Listener?
         ) {
             binding.name.text = scopeModel.element.name
-            binding.module.text = scopeModel.module
             binding.root.setOnClickListener {
                 listener?.onClick(scopeModel.element)
             }
@@ -36,7 +35,7 @@ class ScopeAdapter : ListAdapter<ScopeModel, ScopeAdapter.ScopeViewHolder>(callb
         val inflater = LayoutInflater.from(parent.context)
 
         return ScopeViewHolder(
-            AdapterScopeBinding.inflate(inflater, parent, false)
+            OfiaAdapterScopeBinding.inflate(inflater, parent, false)
         )
     }
 

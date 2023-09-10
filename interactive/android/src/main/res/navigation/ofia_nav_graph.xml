@@ -9,7 +9,7 @@
         android:id="@+id/mainFragment"
         android:name="ru.unit.orchestra_features.interactive.android.fragment.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/ofia_fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_featureFragment"
             app:enterAnim="@android:anim/slide_in_left"
@@ -22,7 +22,7 @@
         android:id="@+id/featureFragment"
         android:name="ru.unit.orchestra_features.interactive.android.fragment.FeatureFragment"
         android:label="fragment_feature"
-        tools:layout="@layout/fragment_feature" >
+        tools:layout="@layout/ofia_fragment_feature" >
         <argument
             android:name="id"
             app:argType="string" />

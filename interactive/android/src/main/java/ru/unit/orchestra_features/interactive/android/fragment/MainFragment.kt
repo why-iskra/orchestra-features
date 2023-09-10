@@ -1,6 +1,8 @@
 package ru.unit.orchestra_features.interactive.android.fragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.core.view.isVisible
@@ -16,25 +18,26 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.search.SearchView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import ru.unit.orchestra_features.common.support.utils.delegate.SingleAssignment
 import ru.unit.orchestra_features.interactive.android.R
 import ru.unit.orchestra_features.interactive.android.adapter.FeatureAdapter
 import ru.unit.orchestra_features.interactive.android.adapter.ScopeAdapter
-import ru.unit.orchestra_features.interactive.android.databinding.FragmentMainBinding
+import ru.unit.orchestra_features.interactive.android.databinding.OfiaFragmentMainBinding
 import ru.unit.orchestra_features.interactive.android.utils.updateStatusBarState
 import ru.unit.orchestra_features.interactive.android.viewmodel.MainViewModel
-import ru.unit.orchestra_features.common.utils.delegate.SingleAssignment
 
 
-class MainFragment : Fragment(R.layout.fragment_main) {
+class MainFragment : Fragment(R.layout.ofia_fragment_main) {
 
     private val model: MainViewModel by viewModels()
 
+    private val searchAdapter = FeatureAdapter()
     private val featureAdapter = FeatureAdapter()
     private val scopeAdapter = ScopeAdapter()
 
     private val singleAssignmentController = SingleAssignment.GroupController()
 
-    private var binding by SingleAssignment<FragmentMainBinding>().apply {
+    private var binding by SingleAssignment<OfiaFragmentMainBinding>().apply {
         singleAssignmentController.add(controller())
     }
 
@@ -42,16 +45,48 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         singleAssignmentController.add(controller())
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = FragmentMainBinding.bind(view)
+    private val searchTextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
 
+        override fun afterTextChanged(s: Editable?) = Unit
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            model.search(s?.toString())
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding = OfiaFragmentMainBinding.bind(view)
+
+        setupBackPress()
         setupSearch()
         setupBottomSheet()
         setupFab()
         setupScopeNameTextView()
         setupFeaturesRecyclerView()
         setupScopesRecyclerView()
+        setupSearchRecyclerView()
         setupObservers()
+    }
+
+    private fun setupBackPress() {
+//        val callback = object : OnBackPressedCallback(enabled = true) {
+//            override fun handleOnBackPressed() {
+//                isEnabled = binding.searchView.isShowing
+//
+//                if (isEnabled) {
+//                    binding.searchView.hide()
+//                } else {
+//                    activity?.onBackPressedDispatcher?.onBackPressed()
+//                }
+//            }
+//        }
+
+//        requireActivity().onBackPressedDispatcher
+//            .addCallback(
+//                owner = viewLifecycleOwner,
+//                onBackPressedCallback = callback
+//            )
     }
 
     override fun onDestroyView() {
@@ -77,6 +112,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
 
         launch {
+            model.searchFeatureModelsFlow.collect(searchAdapter::submitList)
+        }
+
+        launch {
             model.scopeModelsFlow.collect(scopeAdapter::submitList)
         }
 
@@ -93,6 +132,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 else -> Unit
             }
         }
+
+        binding.searchView.editText.addTextChangedListener(searchTextWatcher)
     }
 
     private fun setupBottomSheet() {
@@ -165,6 +206,21 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             model.onScopeChosen(scopeElement)
 
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        }
+    }
+
+    private fun setupSearchRecyclerView() {
+        binding.searchRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            itemAnimator = null
+
+            adapter = searchAdapter
+        }
+
+        searchAdapter.listener = FeatureAdapter.Listener { featureElement ->
+            findNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToFeatureFragment(featureElement.id)
+            )
         }
     }
 }

@@ -4,7 +4,7 @@ import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.PropertySpec
 import ru.unit.orchestra_features.processor.generator.code.orchestra.OrchestraClass
-import ru.unit.orchestra_features.processor.generator.code.orchestra.property.FeatureScopeProperty
+import ru.unit.orchestra_features.processor.generator.code.scope.property.FeatureScopeProperty
 import ru.unit.orchestra_features.processor.generator.code.orchestra.property.ScopeProperty
 import ru.unit.orchestra_features.processor.model.FeatureModel
 

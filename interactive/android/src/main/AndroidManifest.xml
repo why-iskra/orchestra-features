@@ -7,8 +7,8 @@
 
         <activity
             android:name=".OrchestraActivity"
-            android:exported="true"
-            android:theme="@style/Theme.Interactive.OrchestraFeatures" />
+            android:exported="false"
+            android:theme="@style/OfiaTheme.Interactive.OrchestraFeatures" />
 
     </application>
 

@@ -7,4 +7,4 @@
     android:layout_height="match_parent"
     android:id="@+id/fragmentContainerView"
     app:defaultNavHost="true"
-    app:navGraph="@navigation/nav_graph" />
+    app:navGraph="@navigation/ofia_nav_graph" />

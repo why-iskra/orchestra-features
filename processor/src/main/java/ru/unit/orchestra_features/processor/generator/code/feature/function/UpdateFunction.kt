@@ -6,7 +6,7 @@ import com.squareup.kotlinpoet.KModifier
 import ru.unit.orchestra_features.processor.generator.code.feature.property.DependentOnToggleProperty
 import ru.unit.orchestra_features.processor.generator.code.feature.property.ToggleProperty
 import ru.unit.orchestra_features.processor.generator.code.orchestra.OrchestraClass
-import ru.unit.orchestra_features.processor.generator.code.orchestra.property.FeatureScopeProperty
+import ru.unit.orchestra_features.processor.generator.code.scope.property.FeatureScopeProperty
 import ru.unit.orchestra_features.processor.generator.code.orchestra.property.ScopeProperty
 import ru.unit.orchestra_features.processor.model.FeatureModel
 import ru.unit.orchestra_features.processor.utils.extension.synchronizedCodeBlock

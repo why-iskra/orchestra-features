@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <solid android:color="?attr/colorLightScrollbarThumb" />
+    <solid android:color="?attr/ofia_colorDarkScrollbarThumb" />
     <corners android:radius="8dp" />
     <size android:width="4dp" />
 </shape>

@@ -4,6 +4,7 @@ import com.google.devtools.ksp.isPublic
 import com.google.devtools.ksp.symbol.*
 import com.google.devtools.ksp.visitor.KSEmptyVisitor
 import com.squareup.kotlinpoet.ksp.toClassName
+import ru.unit.orchestra_features.common.annotation.Feature
 import ru.unit.orchestra_features.common.annotation.FeatureScope
 import ru.unit.orchestra_features.processor.exception.ProcessorException
 import ru.unit.orchestra_features.processor.model.FeatureScopeModel
@@ -11,9 +12,12 @@ import ru.unit.orchestra_features.processor.utils.extension.checkName
 import ru.unit.orchestra_features.processor.utils.extension.getAnnotation
 import ru.unit.orchestra_features.processor.utils.extension.getParameter
 
-class FeatureScopeVisitor : KSEmptyVisitor<Unit, FeatureScopeModel?>() {
+class FeatureScopeVisitor : KSEmptyVisitor<Unit, FeatureScopeModel>() {
 
-    override fun defaultHandler(node: KSNode, data: Unit): FeatureScopeModel? = null
+    override fun defaultHandler(node: KSNode, data: Unit) = throw ProcessorException(
+        message = "Wrong feature scope visitor node ${node.origin.name}",
+        node = node
+    )
 
     override fun visitClassDeclaration(classDeclaration: KSClassDeclaration, data: Unit) = createModel(
         node = classDeclaration,
@@ -25,8 +29,11 @@ class FeatureScopeVisitor : KSEmptyVisitor<Unit, FeatureScopeModel?>() {
         node: T,
         defaultName: String,
         clazz: String
-    ): FeatureScopeModel? where T : KSAnnotated, T : KSDeclarationContainer {
-        val annotation = node.getAnnotation<FeatureScope>() ?: return null
+    ): FeatureScopeModel where T : KSAnnotated, T : KSDeclarationContainer {
+        val annotation = node.getAnnotation<FeatureScope>() ?: throw ProcessorException(
+            message = "Cannot found FeatureScope annotation",
+            node = node
+        )
 
         val dependsOn = annotation
             .getParameter<List<KSType>>(
@@ -49,6 +56,8 @@ class FeatureScopeVisitor : KSEmptyVisitor<Unit, FeatureScopeModel?>() {
         }
 
         val features = node.declarations.mapNotNull { declaration ->
+            declaration.getAnnotation<Feature>() ?: return@mapNotNull null
+
             declaration.accept(
                 visitor = FeatureVisitor(),
                 data = Unit

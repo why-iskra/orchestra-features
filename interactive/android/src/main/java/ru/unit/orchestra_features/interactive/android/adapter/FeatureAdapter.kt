@@ -6,16 +6,16 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.unit.orchestra_features.interactive.android.databinding.AdapterFeatureBinding
-import ru.unit.orchestra_features.interactive.android.model.FeatureModel
 import ru.unit.orchestra_features.common.support.interactive.ElementData
+import ru.unit.orchestra_features.interactive.android.databinding.OfiaAdapterFeatureBinding
+import ru.unit.orchestra_features.interactive.android.model.FeatureModel
 
 class FeatureAdapter : ListAdapter<FeatureModel, FeatureAdapter.FeatureViewHolder>(callback) {
 
     var listener: Listener? = null
 
     class FeatureViewHolder(
-        private val binding: AdapterFeatureBinding
+        private val binding: OfiaAdapterFeatureBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindTo(
@@ -59,7 +59,7 @@ class FeatureAdapter : ListAdapter<FeatureModel, FeatureAdapter.FeatureViewHolde
         val inflater = LayoutInflater.from(parent.context)
 
         return FeatureViewHolder(
-            AdapterFeatureBinding.inflate(inflater, parent, false)
+            OfiaAdapterFeatureBinding.inflate(inflater, parent, false)
         )
     }
 

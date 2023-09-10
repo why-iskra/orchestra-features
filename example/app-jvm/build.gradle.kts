@@ -5,12 +5,9 @@ plugins {
     application
 }
 
-group = "ru.unit.orchestra_features.example.jvm"
-version = "unspecified"
-
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 kotlin.sourceSets.main {

@@ -13,15 +13,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ru.unit.orchestra_features.interactive.android.R
 import ru.unit.orchestra_features.interactive.android.adapter.FeatureAdapter
-import ru.unit.orchestra_features.interactive.android.databinding.FragmentFeatureBinding
+import ru.unit.orchestra_features.interactive.android.databinding.OfiaFragmentFeatureBinding
 import ru.unit.orchestra_features.interactive.android.utils.updateStatusBarState
 import ru.unit.orchestra_features.interactive.android.viewmodel.FeatureViewModel
 import ru.unit.orchestra_features.common.support.Feature
-import ru.unit.orchestra_features.common.utils.delegate.SingleAssignment
-import ru.unit.orchestra_features.common.utils.delegate.dataClassBeautifier
+import ru.unit.orchestra_features.common.support.utils.delegate.SingleAssignment
+import ru.unit.orchestra_features.common.support.utils.dataClassBeautifier
 
 
-class FeatureFragment : Fragment(R.layout.fragment_feature) {
+class FeatureFragment : Fragment(R.layout.ofia_fragment_feature) {
 
     private val id: String get() = arguments?.getString("id")!!
 
@@ -31,7 +31,7 @@ class FeatureFragment : Fragment(R.layout.fragment_feature) {
 
     private val singleAssignmentController = SingleAssignment.GroupController()
 
-    private var binding by SingleAssignment<FragmentFeatureBinding>().apply {
+    private var binding by SingleAssignment<OfiaFragmentFeatureBinding>().apply {
         singleAssignmentController.add(controller())
     }
 
@@ -42,7 +42,7 @@ class FeatureFragment : Fragment(R.layout.fragment_feature) {
     private val dependsOnAdapter = FeatureAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = FragmentFeatureBinding.bind(view)
+        binding = OfiaFragmentFeatureBinding.bind(view)
 
         setupNameTextView()
         setupBottomSheet()

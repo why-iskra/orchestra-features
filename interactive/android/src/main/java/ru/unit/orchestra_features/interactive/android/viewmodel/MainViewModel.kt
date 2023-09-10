@@ -2,69 +2,64 @@ package ru.unit.orchestra_features.interactive.android.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import ru.unit.orchestra_features.common.extension.asFlow
-import ru.unit.orchestra_features.interactive.android.AndroidOrchestraInjector
-import ru.unit.orchestra_features.interactive.android.model.FeatureModel
-import ru.unit.orchestra_features.interactive.android.model.ScopeModel
-import ru.unit.orchestra_features.common.support.Feature
 import ru.unit.orchestra_features.common.support.interactive.ElementData
-import ru.unit.orchestra_features.common.support.interactive.InteractiveFeatureData
-import ru.unit.orchestra_features.common.support.interactive.InteractiveOrchestra
 import ru.unit.orchestra_features.common.support.interactive.InteractiveScopeData
+import ru.unit.orchestra_features.interactive.android.AndroidFeatureScopeInjector
+import ru.unit.orchestra_features.interactive.android.model.ScopeModel
 
 class MainViewModel : ViewModel() {
 
     private val _statusBarStateFlow = MutableStateFlow<StatusBarState>(StatusBarState.Light)
     val statusBarStateFlow = _statusBarStateFlow.asStateFlow()
 
-    private val _scopeModelsFlow = MutableStateFlow<List<OrchestraScopePair>>(emptyList())
+    private val _scopeModelsFlow = MutableStateFlow<List<InteractiveScopeData>>(emptyList())
     val scopeModelsFlow = _scopeModelsFlow.map { orchestraScopes ->
-        orchestraScopes.map { orchestraScope ->
+        orchestraScopes.map { scope ->
             ScopeModel(
-                element = orchestraScope.scope.element,
-                module = orchestraScope.orchestra.__generated_module
+                element = scope.element,
             )
         }
     }
 
     private val currentScopeFlow = MutableStateFlow<ElementData?>(null)
 
+    private val searchQueryFlow = MutableStateFlow<String?>(null)
+
     private val scopeFlow = _scopeModelsFlow.combine(currentScopeFlow) { orchestraScopes, element ->
-        orchestraScopes.find { orchestraScope ->
-            orchestraScope.scope.element == element
+        orchestraScopes.find { scope ->
+            scope.element == element
         } ?: orchestraScopes.firstOrNull()
     }
 
-    val scopeNameFlow = scopeFlow.filterNotNull().map { data -> data.scope.element.name }
+    val scopeNameFlow = scopeFlow.filterNotNull().map { data -> data.element.name }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    val featureModelsFlow = scopeFlow.filterNotNull().flatMapLatest { orchestraScope ->
-        val features = orchestraScope.scope.features
-
-        val featuresFlows = features.map { feature ->
-            feature.feature.asFlow().map { state ->
-                StateFeaturePair(
-                    state = state,
-                    feature = feature
-                )
-            }
-        }.toTypedArray()
-
-        combine(*featuresFlows) { flows ->
-            flows.map { stateFeaturePair ->
-                FeatureModel(
-                    element = stateFeaturePair.feature.element,
-                    state = stateFeaturePair.state,
-                    toggleable = stateFeaturePair.feature.toggleable,
-                    description = stateFeaturePair.feature.description,
-                    isKnown = true
-                )
+    val featureModelsFlow by FeatureModelsProducer(
+        scopeFlow.filterNotNull().map { scope ->
+            scope.features.map { feature ->
+                feature.element
             }
         }
-    }
+    )
+
+    val searchFeatureModelsFlow by FeatureModelsProducer(
+        scopeFlow.filterNotNull().combine(searchQueryFlow) { scope, query ->
+            scope.features.filter { feature ->
+                val element = feature.element
+
+                val preparedQuery = (query ?: "").trim().lowercase()
+
+                val queryIsBlank = preparedQuery.isBlank()
+                val queryContainsInName = element.name.lowercase().contains(preparedQuery)
+                val queryContainsInId = element.id.lowercase().contains(preparedQuery)
+
+                return@filter queryIsBlank || queryContainsInName || queryContainsInId
+            }.map { feature ->
+                feature.element
+            }
+        }
+    )
 
     init {
         update()
@@ -100,30 +95,21 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    fun search(text: String?) {
+        viewModelScope.launch {
+            searchQueryFlow.emit(text)
+        }
+    }
+
     private fun update() {
         viewModelScope.launch {
-            val scopes = AndroidOrchestraInjector.injected.flatMap { orchestra ->
-                orchestra.__generated_scopes.map { scope ->
-                    OrchestraScopePair(
-                        orchestra = orchestra,
-                        scope = scope
-                    )
-                }.sortedBy { orchestraScope ->
-                    orchestraScope.orchestra.__generated_module + orchestraScope.scope.element.name
-                }
+            val scopes = AndroidFeatureScopeInjector.injected.map { scope ->
+                scope.__generated_scope
+            }.sortedBy { scope ->
+                scope.element.name
             }
 
             _scopeModelsFlow.emit(scopes)
         }
     }
-
-    private data class OrchestraScopePair(
-        val scope: InteractiveScopeData,
-        val orchestra: InteractiveOrchestra
-    )
-
-    private data class StateFeaturePair(
-        val feature: InteractiveFeatureData,
-        val state: Feature.State<*>,
-    )
 }

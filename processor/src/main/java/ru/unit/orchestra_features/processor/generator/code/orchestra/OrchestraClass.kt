@@ -3,11 +3,8 @@ package ru.unit.orchestra_features.processor.generator.code.orchestra
 import com.squareup.kotlinpoet.TypeSpec
 import ru.unit.orchestra_features.processor.generator.code.orchestra.function.InitFunction
 import ru.unit.orchestra_features.processor.generator.code.orchestra.property.InteractiveScopesProperty
-import ru.unit.orchestra_features.processor.generator.code.orchestra.property.ModuleProperty
 import ru.unit.orchestra_features.processor.generator.code.orchestra.property.ScopeProperty
-import ru.unit.orchestra_features.processor.model.FeatureModel
 import ru.unit.orchestra_features.processor.model.FeatureScopeModel
-import ru.unit.orchestra_features.common.support.interactive.InteractiveOrchestra
 
 class OrchestraClass {
 
@@ -21,28 +18,22 @@ class OrchestraClass {
     ) = TypeSpec.objectBuilder(
         name = name()
     ).apply {
-        val isInteractive = featureScopeModels
-            .flatMap(FeatureScopeModel::features)
-            .any(FeatureModel::interactive)
-
         featureScopeModels.forEach { model ->
-            addType(
-                ScopeClass().generate(
+            addProperty(
+                ScopeProperty().generate(
                     featureScopeModel = model,
                     packageName = packageName
                 )
             )
-            addProperty(ScopeProperty().generate(model))
-        }
-
-        if (isInteractive) {
-            superclass(InteractiveOrchestra::class)
-
-            addProperty(InteractiveScopesProperty().generate(featureScopeModels))
-            addProperty(ModuleProperty().generate(packageName))
         }
 
         addInitializerBlock(InitFunction().generate(featureScopeModels))
+
+        val isInteractive = featureScopeModels.any(FeatureScopeModel::isInteractive)
+
+        if (isInteractive) {
+            addProperty(InteractiveScopesProperty().generate(featureScopeModels))
+        }
     }.build()
 
 }

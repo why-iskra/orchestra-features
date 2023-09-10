@@ -24,7 +24,7 @@
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/round_arrow_back_24"
+                app:srcCompat="@drawable/ofia_round_arrow_back_24"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="16dp"
@@ -86,7 +86,7 @@
                         app:layout_constraintHeight_max="150dp"
                         android:requiresFadingEdge="vertical"
                         android:scrollbars="vertical"
-                        android:scrollbarThumbVertical="@drawable/light_scrollbar_thumb"
+                        android:scrollbarThumbVertical="@drawable/ofia_light_scrollbar_thumb"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent">
@@ -104,7 +104,7 @@
                         android:layout_width="0dp"
                         android:layout_height="4dp"
                         android:id="@+id/separatorView"
-                        android:background="@drawable/separator"
+                        android:background="@drawable/ofia_separator"
                         app:layout_constraintTop_toBottomOf="@+id/dataScroll"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -133,11 +133,11 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.materialswitch.MaterialSwitch
-                android:theme="@style/Theme.Interactive.MaterialSwitch"
+                android:theme="@style/OfiaTheme.Interactive.MaterialSwitch"
                 android:id="@+id/switchView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/enable_disable"
+                android:text="@string/ofia_enable_disable"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -166,7 +166,7 @@
             android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
             android:textColor="?attr/colorOnPrimaryContainer"
             android:gravity="center"
-            android:text="@string/depends_on"
+            android:text="@string/ofia_depends_on"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -185,7 +185,7 @@
             android:fadingEdgeLength="16dp"
             android:requiresFadingEdge="vertical"
             android:scrollbars="vertical"
-            android:scrollbarThumbVertical="@drawable/dark_scrollbar_thumb">
+            android:scrollbarThumbVertical="@drawable/ofia_dark_scrollbar_thumb">
 
         </androidx.recyclerview.widget.RecyclerView>
 

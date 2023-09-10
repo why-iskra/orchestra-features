@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.Interactive.OrchestraFeatures" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="OfiaTheme.Interactive.OrchestraFeatures" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/ofia_black</item>
         <item name="colorPrimaryVariant">@color/ofia_black</item>
         <item name="colorPrimaryContainer">@color/ofia_gray</item>
@@ -42,12 +42,12 @@
         <item name="bottomSheetStyle">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
 
         <item name="fontFamily">@font/nunito</item>
-        <item name="colorLightScrollbarThumb">@color/ofia_gray_light</item>
-        <item name="colorDarkScrollbarThumb">@color/ofia_gray</item>
-        <item name="colorRipple">@color/ofia_ripple_light</item>
+        <item name="ofia_colorLightScrollbarThumb">@color/ofia_gray_light</item>
+        <item name="ofia_colorDarkScrollbarThumb">@color/ofia_gray</item>
+        <item name="ofia_colorRipple">@color/ofia_ripple_light</item>
     </style>
 
-    <style name="Theme.Interactive.MaterialSwitch" parent="">
+    <style name="OfiaTheme.Interactive.MaterialSwitch" parent="">
         <item name="colorSurface">@color/ofia_gray</item>
         <item name="colorSurfaceVariant">@color/ofia_white</item>
         <item name="colorOnSurface">@color/ofia_black</item>
