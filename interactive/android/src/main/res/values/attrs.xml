@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorLightScrollbarThumb" format="color" />
+    <attr name="colorDarkScrollbarThumb" format="color" />
+    <attr name="colorRipple" format="color" />
+</resources>

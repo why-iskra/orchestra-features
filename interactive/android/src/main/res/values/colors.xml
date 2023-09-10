@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ofia_white">#FFFBFE</color>
+    <color name="ofia_black">#1C1B1F</color>
+    <color name="ofia_gray">#49454F</color>
+    <color name="ofia_gray_light">#C3BFC2</color>
+
+    <color name="ofia_red">#B3261E</color>
+    <color name="ofia_red_light">#F9DEDC</color>
+    <color name="ofia_red_dark">#410E0B</color>
+
+    <color name="ofia_ripple_light">#18000000</color>
+</resources>

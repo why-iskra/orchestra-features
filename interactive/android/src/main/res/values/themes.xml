@@ -1,0 +1,61 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.Interactive.OrchestraFeatures" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/ofia_black</item>
+        <item name="colorPrimaryVariant">@color/ofia_black</item>
+        <item name="colorPrimaryContainer">@color/ofia_gray</item>
+        <item name="colorOnPrimary">@color/ofia_white</item>
+        <item name="colorOnPrimaryContainer">@color/ofia_white</item>
+
+        <item name="colorSecondary">@color/ofia_black</item>
+        <item name="colorSecondaryVariant">@color/ofia_black</item>
+        <item name="colorSecondaryContainer">@color/ofia_gray</item>
+        <item name="colorOnSecondary">@color/ofia_white</item>
+        <item name="colorOnSecondaryContainer">@color/ofia_white</item>
+
+        <item name="colorTertiary">@color/ofia_black</item>
+        <item name="colorTertiaryContainer">@color/ofia_gray</item>
+        <item name="colorOnTertiary">@color/ofia_white</item>
+        <item name="colorOnTertiaryContainer">@color/ofia_white</item>
+
+        <item name="colorError">@color/ofia_red</item>
+        <item name="colorErrorContainer">@color/ofia_red_dark</item>
+        <item name="colorOnError">@color/ofia_white</item>
+        <item name="colorOnErrorContainer">@color/ofia_red_light</item>
+
+        <item name="colorSurface">@color/ofia_black</item>
+        <item name="colorSurfaceVariant">@color/ofia_gray</item>
+        <item name="colorOnSurface">@color/ofia_white</item>
+        <item name="colorOnSurfaceVariant">@color/ofia_white</item>
+        <item name="colorSurfaceContainer">@color/ofia_black</item>
+        <item name="colorSurfaceContainerHigh">@color/ofia_black</item>
+
+        <item name="colorOutline">@color/ofia_black</item>
+        <item name="colorOutlineVariant">@color/ofia_black</item>
+
+        <item name="android:colorBackground">@color/ofia_white</item>
+        <item name="colorOnBackground">@color/ofia_black</item>
+
+        <item name="android:statusBarColor">?android:attr/colorBackground</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+
+        <item name="bottomSheetStyle">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
+
+        <item name="fontFamily">@font/nunito</item>
+        <item name="colorLightScrollbarThumb">@color/ofia_gray_light</item>
+        <item name="colorDarkScrollbarThumb">@color/ofia_gray</item>
+        <item name="colorRipple">@color/ofia_ripple_light</item>
+    </style>
+
+    <style name="Theme.Interactive.MaterialSwitch" parent="">
+        <item name="colorSurface">@color/ofia_gray</item>
+        <item name="colorSurfaceVariant">@color/ofia_white</item>
+        <item name="colorOnSurface">@color/ofia_black</item>
+        <item name="colorOnSurfaceVariant">@color/ofia_black</item>
+        <item name="colorPrimaryContainer">@color/ofia_white</item>
+        <item name="android:textColorPrimaryDisableOnly">@color/ofia_black</item>
+
+        <item name="switchStyle">@style/Widget.Material3.CompoundButton.MaterialSwitch</item>
+    </style>
+
+</resources>
