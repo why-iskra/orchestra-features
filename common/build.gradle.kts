@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.cli.jvm.compiler.jvmFactories
-
 plugins {
     id("java-library")
     id("org.jetbrains.kotlin.jvm")
@@ -18,9 +16,9 @@ kotlin {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "ru.unit.orchestra-features"
-            artifactId = "common"
-            version = "1.0.1"
+            groupId = ProjectInfo.GROUP_ID
+            artifactId = ProjectInfo.ArtifactId.Common.name
+            version = ProjectInfo.VERSION
 
             from(components["java"])
         }
@@ -28,5 +26,5 @@ publishing {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation(Dependencies.coroutines)
 }

@@ -16,9 +16,9 @@ kotlin {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "ru.unit.orchestra-features"
-            artifactId = "processor"
-            version = "1.0.1"
+            groupId = ProjectInfo.GROUP_ID
+            artifactId = ProjectInfo.ArtifactId.Processor.name
+            version = ProjectInfo.VERSION
 
             from(components["java"])
         }
@@ -27,7 +27,8 @@ publishing {
 
 dependencies {
     implementation(project(":common"))
-    implementation("com.google.devtools.ksp:symbol-processing-api:1.8.22-1.0.11")
-    implementation("com.squareup:kotlinpoet:1.14.2")
-    implementation("com.squareup:kotlinpoet-ksp:1.14.2")
+
+    implementation(Dependencies.ksp)
+    implementation(Dependencies.kotlinpoet)
+    implementation(Dependencies.kotlinpoetKsp)
 }

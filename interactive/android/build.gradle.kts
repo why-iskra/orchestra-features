@@ -36,9 +36,10 @@ afterEvaluate {
     publishing {
         publications {
             register<MavenPublication>("release") {
-                groupId = "ru.unit.orchestra-features"
-                artifactId = "interactive-android"
-                version = "1.0.1"
+                groupId = ProjectInfo.GROUP_ID
+                artifactId = ProjectInfo.ArtifactId.InteractiveAndroid.name
+                version = ProjectInfo.VERSION
+
                 from(components["release"])
             }
         }
@@ -48,11 +49,11 @@ afterEvaluate {
 dependencies {
     api(project(":common"))
 
-    implementation("androidx.navigation:navigation-fragment-ktx:2.5.2")
-    implementation("androidx.navigation:navigation-ui-ktx:2.5.2")
-    implementation("androidx.appcompat:appcompat:1.4.2")
-    implementation("androidx.fragment:fragment-ktx:1.5.2")
-    implementation("com.google.android.material:material:1.9.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
+    implementation(Dependencies.navigationFragment)
+    implementation(Dependencies.navigationUi)
+    implementation(Dependencies.appcompat)
+    implementation(Dependencies.fragment)
+    implementation(Dependencies.material)
+    implementation(Dependencies.constraintlayout)
+    implementation(Dependencies.lifecycle)
 }
