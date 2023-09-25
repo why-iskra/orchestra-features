@@ -3,9 +3,10 @@ package ru.unit.orchestra_features.processor.generator.code.scope
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
 import ru.unit.orchestra_features.common.support.interactive.InteractiveFeatureScope
+import ru.unit.orchestra_features.processor.generator.code.scope.property.FeatureInstanceProperty
 import ru.unit.orchestra_features.processor.generator.code.scope.property.FeatureProperty
-import ru.unit.orchestra_features.processor.generator.code.scope.property.InstanceProperty
 import ru.unit.orchestra_features.processor.generator.code.scope.property.InteractiveScopeProperty
+import ru.unit.orchestra_features.processor.generator.code.scope.property.ScopeInstanceProperty
 import ru.unit.orchestra_features.processor.model.FeatureScopeModel
 import ru.unit.orchestra_features.processor.utils.PackageData
 
@@ -56,10 +57,16 @@ class ScopeClass {
         featureScopeModel: FeatureScopeModel,
         packageData: PackageData
     ) = TypeSpec.companionObjectBuilder().apply {
+        addProperty(
+            ScopeInstanceProperty().generate(
+                featureScopeModel = featureScopeModel,
+                packageData = packageData
+            )
+        )
+
         featureScopeModel.features.forEach { model ->
             addProperty(
-                InstanceProperty().generate(
-                    featureScopeModel = featureScopeModel,
+                FeatureInstanceProperty().generate(
                     featureModel = model,
                     packageData = packageData
                 )
