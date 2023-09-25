@@ -2,7 +2,7 @@ package ru.unit.orchestra_features.example.android
 
 import ru.unit.orchestra_features.common.annotation.*
 
-@FeatureScope(name = "TestScope1")
+@FeatureScope(name = "TestScope")
 object TestScope {
 
     @Feature(
@@ -24,34 +24,34 @@ object TestScope {
         val test9: String = "awd",
     )
 
-    @Feature("helloFeature2", interactive = true)
+    @Feature("hello2Feature", interactive = true)
     @DependsOn([Hello3::class])
     @Toggleable([Source.EXTERNAL, Source.INTERACTIVE])
     class Hello2
 
-    @Feature("helloFeature3")
+    @Feature("hello3Feature")
     class Hello3
 
     @Feature("f1", interactive = true)
-    @DependsOn([empty2::class, empty4::class, empty6::class])
+    @DependsOn([empty2::class, empty4::class, testFeatureData::class])
     class empty1
 
     @Feature("f2", interactive = true)
     class empty2
 
-    @Feature("f3", interactive = true)
-    @DependsOn([empty5::class])
+    @Feature("F3", interactive = true)
+    @DependsOn([Empty5::class])
     class empty3
 
     @Feature("f4", interactive = true)
-    @DependsOn([empty2::class, empty5::class])
+    @DependsOn([empty2::class, Empty5::class])
     class empty4
 
     @Feature("f5", interactive = true)
     @Toggleable([Source.EXTERNAL, Source.INTERACTIVE])
-    @DependsOn([empty6::class])
-    class empty5
+    @DependsOn([testFeatureData::class])
+    class Empty5
 
-    @Feature("f6", interactive = true)
-    class empty6
+    @Feature(interactive = true)
+    class testFeatureData
 }

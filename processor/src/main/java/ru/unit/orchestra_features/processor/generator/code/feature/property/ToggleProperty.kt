@@ -28,7 +28,7 @@ class ToggleProperty {
 
         getter(
             FunSpec.getterBuilder()
-                .addStatement("return ${toggles.joinToString(" || ")}")
+                .addStatement("return·${toggles.joinToString("·||·")}")
                 .build()
         )
     }.build()

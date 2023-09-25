@@ -27,7 +27,7 @@ class InteractiveScopesProperty {
         )
 
         delegate(
-            "%N { %N($names) }",
+            "%N·{·%N($names)·}",
             "lazy",
             "listOf"
         )

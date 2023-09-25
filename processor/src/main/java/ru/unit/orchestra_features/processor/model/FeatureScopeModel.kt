@@ -6,9 +6,10 @@ import ru.unit.orchestra_features.common.support.utils.delegate.SingleAssignment
 import ru.unit.orchestra_features.processor.utils.extension.md5
 
 data class FeatureScopeModel(
-    val name: String,
+    private val rawName: String,
     val dependsOnClasses: List<SClass>,
     val features: List<FeatureModel>,
+    val beautifyName: Boolean,
     val clazz: SClass,
     val ksNode: KSAnnotated,
     val originalKSFile: KSFile,
@@ -17,5 +18,21 @@ data class FeatureScopeModel(
 
     var dependsOn by SingleAssignment<List<FeatureScopeModel>>()
 
-    val id = ("${name}_$clazz").md5()
+    val id = ("${rawName}_$clazz").md5()
+
+    val name = if (beautifyName) {
+        val trimmed = rawName.trim()
+            .removeSuffix("Scope")
+            .removeSuffix("Feature")
+            .removeSuffix("Features")
+
+            .removeSuffix("FeatureScope")
+            .removeSuffix("FeaturesScope")
+            .removeSuffix("ScopeFeature")
+            .removeSuffix("ScopeFeatures")
+
+        "${trimmed}FeatureScope"
+    } else {
+        rawName.trim()
+    }
 }

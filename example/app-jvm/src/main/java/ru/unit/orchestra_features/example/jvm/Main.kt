@@ -5,11 +5,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import ru.unit.orchestra_features.common.extension.asFlow
-import ru.unit.orchestra_features.example.jvm.orchestra_features.generated.Scope1
+import ru.unit.orchestra_features.example.jvm.orchestra_features.generated.TestFirstFeatureScope
 
 fun main(): Unit = runBlocking {
     launch(Dispatchers.IO) {
-        Scope1.features.awd.asFlow().collect {
+        TestFirstFeatureScope.awdFeature.asFlow().collect {
             println("-> $it")
         }
     }
@@ -18,12 +18,12 @@ fun main(): Unit = runBlocking {
 
     println("Emit")
 
-    Scope1.features.awd.toggle(true)
-    Scope1.features.awd.toggle(false)
-    Scope1.features.awd.toggle(false)
-    Scope1.features.awd.toggle(false)
-    Scope1.features.awd.toggle(true)
-    Scope1.features.awd.toggle(false)
-    Scope1.features.awd.toggle(false)
-    Scope1.features.awd.toggle(false)
+    TestFirstFeatureScope.awdFeature.toggle(true)
+    TestFirstFeatureScope.awdFeature.toggle(false)
+    TestFirstFeatureScope.awdFeature.toggle(false)
+    TestFirstFeatureScope.awdFeature.toggle(false)
+    TestFirstFeatureScope.awdFeature.toggle(true)
+    TestFirstFeatureScope.awdFeature.toggle(false)
+    TestFirstFeatureScope.awdFeature.toggle(false)
+    TestFirstFeatureScope.awdFeature.toggle(false)
 }

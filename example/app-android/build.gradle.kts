@@ -36,6 +36,10 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    ksp {
+        arg("orchestra-features.packagePrefix", namespace!!)
+    }
 }
 
 kotlin {

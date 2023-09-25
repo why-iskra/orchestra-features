@@ -38,7 +38,7 @@ afterEvaluate {
             register<MavenPublication>("release") {
                 groupId = "ru.unit.orchestra-features"
                 artifactId = "interactive-android"
-                version = "1.0.0"
+                version = "1.0.1"
                 from(components["release"])
             }
         }

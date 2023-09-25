@@ -32,7 +32,7 @@ class StateProperty {
                 addCode(
                     CodeBlock.synchronizedCodeBlock("this") {
                         addStatement(
-                            "return %T(${toggles.joinToString(" && ")}, ${DataProperty.name()})",
+                            "return·%T(${toggles.joinToString("·&&·")}, ${DataProperty.name()})",
                             Feature.State::class.asTypeName().parameterizedBy(featureModel.clazz.asClassName())
                         )
                     }

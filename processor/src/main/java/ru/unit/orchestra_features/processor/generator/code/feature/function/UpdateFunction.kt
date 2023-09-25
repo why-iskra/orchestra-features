@@ -6,7 +6,7 @@ import com.squareup.kotlinpoet.KModifier
 import ru.unit.orchestra_features.processor.generator.code.feature.property.DependentOnToggleProperty
 import ru.unit.orchestra_features.processor.generator.code.feature.property.ToggleProperty
 import ru.unit.orchestra_features.processor.generator.code.orchestra.OrchestraClass
-import ru.unit.orchestra_features.processor.generator.code.scope.property.FeatureScopeProperty
+import ru.unit.orchestra_features.processor.generator.code.scope.property.FeatureProperty
 import ru.unit.orchestra_features.processor.generator.code.orchestra.property.ScopeProperty
 import ru.unit.orchestra_features.processor.model.FeatureModel
 import ru.unit.orchestra_features.processor.utils.extension.synchronizedCodeBlock
@@ -25,7 +25,7 @@ class UpdateFunction {
             if (featureModel.dependsOn.isNotEmpty()) {
                 add(
                     CodeBlock.builder().apply {
-                        beginControlFlow("if (${ToggleProperty.name()})")
+                        beginControlFlow("if·(${ToggleProperty.name()})")
 
                         featureModel.dependsOn.forEach { model ->
                             addStatement(
@@ -34,14 +34,14 @@ class UpdateFunction {
                                         model.scope
                                     )
                                 }.${
-                                    FeatureScopeProperty.name(
+                                    FeatureProperty.name(
                                         model
                                     )
                                 }.${
                                     DependentOnToggleProperty.name(
                                         featureModel
                                     )
-                                } = true"
+                                }·=·true"
                             )
                         }
 
@@ -54,14 +54,14 @@ class UpdateFunction {
                                         model.scope
                                     )
                                 }.${
-                                    FeatureScopeProperty.name(
+                                    FeatureProperty.name(
                                         model
                                     )
                                 }.${
                                     DependentOnToggleProperty.name(
                                         featureModel
                                     )
-                                } = false"
+                                }·=·false"
                             )
                         }
 
@@ -77,7 +77,7 @@ class UpdateFunction {
                             model.scope
                         )
                     }.${
-                        FeatureScopeProperty.name(
+                        FeatureProperty.name(
                             model
                         )
                     }.${name()}()"

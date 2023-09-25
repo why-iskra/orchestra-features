@@ -42,13 +42,13 @@ class ToggleFunction {
 
         addCode(
             CodeBlock.synchronizedCodeBlock("this") {
-                beginControlFlow("if (value != null)")
-                addStatement("${ManualToggleProperty.name()} = value")
+                beginControlFlow("if·(value·!=·null)")
+                addStatement("${ManualToggleProperty.name()}·=·value")
                 endControlFlow()
 
                 if (isMutable) {
-                    beginControlFlow("if (data != null)")
-                    addStatement("this.${DataProperty.name()} = data")
+                    beginControlFlow("if·(data·!=·null)")
+                    addStatement("this.${DataProperty.name()}·=·data")
                     endControlFlow()
                 }
 

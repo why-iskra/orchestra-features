@@ -12,7 +12,7 @@ import ru.unit.orchestra_features.processor.exception.ProcessorException
 import ru.unit.orchestra_features.processor.model.FeatureModel
 import ru.unit.orchestra_features.processor.model.FeatureScopeModel
 
-class InteractiveScopesProperty {
+class InteractiveScopeProperty {
 
     companion object {
 
@@ -45,17 +45,17 @@ class InteractiveScopesProperty {
             CodeBlock.builder().apply {
                 add("%T(", InteractiveScopeData::class.asClassName())
 
-                add("%N = ", "element")
+                add("%N·=·", "element")
                 add(featureScopeModel.toElement())
 
-                add(", %N = %N(", "dependsOn", "listOf")
+                add(",·%N·=·%N(", "dependsOn", "listOf")
                 featureScopeModel.dependsOn.forEach { model ->
                     add(model.toElement())
                     add(",")
                 }
                 add(")")
 
-                add(", %N = %N(", "features", "listOf")
+                add(",·%N·=·%N(", "features", "listOf")
                 featureScopeModel.features
                     .mapNotNull(::featureModelToCode)
                     .forEach { code ->
@@ -73,12 +73,12 @@ class InteractiveScopesProperty {
             CodeBlock.builder().apply {
                 add("%T(", InteractiveFeatureData::class.asClassName())
 
-                add("%N = ", "element")
+                add("%N·=·", "element")
                 add(featureModel.toElement())
 
-                add(", %N = %S", "description", featureModel.description ?: "")
+                add(",·%N·=·%S", "description", featureModel.description ?: "")
 
-                add(", %N = %N(", "dependsOn", "listOf")
+                add(",·%N·=·%N(", "dependsOn", "listOf")
                 featureModel.dependsOn.forEach { model ->
                     add(model.toElement())
                     add(",")
@@ -86,17 +86,17 @@ class InteractiveScopesProperty {
                 add(")")
 
                 add(
-                    format = ", %N = %N", "feature",
-                    FeatureScopeProperty.name(featureModel)
+                    format = ",·%N·=·%N", "feature",
+                    FeatureProperty.name(featureModel)
                 )
 
                 if (featureModel.toggleable.source.contains(Source.INTERACTIVE)) {
                     add(
-                        format = ", %N = %N", "toggleable",
-                        FeatureScopeProperty.name(featureModel)
+                        format = ",·%N·=·%N", "toggleable",
+                        FeatureProperty.name(featureModel)
                     )
                 } else {
-                    add(", %N = null", "toggleable")
+                    add(",·%N·=·null", "toggleable")
                 }
 
                 add(")")
@@ -107,7 +107,7 @@ class InteractiveScopesProperty {
 
     private fun FeatureScopeModel.toElement() = CodeBlock.builder().apply {
         add(
-            format = "%T(%N = %S, %N = %S)",
+            format = "%T(%N·=·%S,·%N·=·%S)",
             ElementData::class.asClassName(),
             "name",
             name,
@@ -118,7 +118,7 @@ class InteractiveScopesProperty {
 
     private fun FeatureModel.toElement() = CodeBlock.builder().apply {
         add(
-            format = "%T(%N = %S, %N = %S)",
+            format = "%T(%N·=·%S,·%N·=·%S)",
             ElementData::class.asClassName(),
             "name",
             name,

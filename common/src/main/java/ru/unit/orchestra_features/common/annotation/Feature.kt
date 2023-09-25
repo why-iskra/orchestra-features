@@ -9,6 +9,7 @@ package ru.unit.orchestra_features.common.annotation
  * @param description description of feature (inserted in comments to generated feature)
  * @param mutable allow/deny changing implementation of class in generated feature
  * @param interactive allow/deny display in interactive environment
+ * @param beautifyName transforms name without changing meaning
  *
  * @see FeatureScope
  */
@@ -19,4 +20,5 @@ annotation class Feature(
     val description: String = "",
     val mutable: Boolean = false,
     val interactive: Boolean = false,
+    val beautifyName: Boolean = true,
 )

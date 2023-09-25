@@ -1,5 +1,7 @@
 package ru.unit.orchestra_features.processor.visitor
 
+import com.google.devtools.ksp.KspExperimental
+import com.google.devtools.ksp.getAnnotationsByType
 import com.google.devtools.ksp.isPublic
 import com.google.devtools.ksp.symbol.*
 import com.google.devtools.ksp.visitor.KSEmptyVisitor
@@ -25,17 +27,20 @@ class FeatureScopeVisitor : KSEmptyVisitor<Unit, FeatureScopeModel>() {
         clazz = classDeclaration.toClassName().canonicalName
     )
 
+    @OptIn(KspExperimental::class)
     private fun <T> createModel(
         node: T,
         defaultName: String,
         clazz: String
     ): FeatureScopeModel where T : KSAnnotated, T : KSDeclarationContainer {
-        val annotation = node.getAnnotation<FeatureScope>() ?: throw ProcessorException(
-            message = "Cannot found FeatureScope annotation",
-            node = node
-        )
+        val featureScopeAnnotation =
+            node.getAnnotationsByType(FeatureScope::class).lastOrNull() ?: throw ProcessorException(
+                message = "Cannot found FeatureScope annotation",
+                node = node
+            )
 
-        val dependsOn = annotation
+        val dependsOn = node
+            .getAnnotation<FeatureScope>()
             .getParameter<List<KSType>>(
                 name = "dependsOn",
                 default = emptyList()
@@ -43,11 +48,7 @@ class FeatureScopeVisitor : KSEmptyVisitor<Unit, FeatureScopeModel>() {
                 type.toClassName().canonicalName
             }
 
-
-        val name = annotation.getParameter(
-            name = "name",
-            default = ""
-        ).let { name ->
+        val name = featureScopeAnnotation.name.let { name ->
             val result = name.ifBlank {
                 defaultName.removeFileExtension()
             }
@@ -72,9 +73,10 @@ class FeatureScopeVisitor : KSEmptyVisitor<Unit, FeatureScopeModel>() {
         }
 
         return FeatureScopeModel(
-            name = name,
+            rawName = name,
             dependsOnClasses = dependsOn,
             features = features,
+            beautifyName = featureScopeAnnotation.beautifyName,
             clazz = clazz,
             ksNode = node,
             originalKSFile = node.accept(FileVisitor(), Unit)!!

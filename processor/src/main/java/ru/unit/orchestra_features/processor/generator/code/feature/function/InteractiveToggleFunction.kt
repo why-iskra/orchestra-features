@@ -23,7 +23,7 @@ class InteractiveToggleFunction {
 
         addCode(
             CodeBlock.synchronizedCodeBlock("this") {
-                addStatement("${ManualToggleProperty.name()} = value")
+                addStatement("${ManualToggleProperty.name()}·=·value")
                 addStatement("${UpdateFunction.name()}()")
             }
         )

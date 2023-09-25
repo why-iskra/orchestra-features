@@ -13,12 +13,18 @@ import ru.unit.orchestra_features.processor.generator.code.feature.property.*
 import ru.unit.orchestra_features.processor.model.FeatureModel
 import ru.unit.orchestra_features.processor.utils.extension.asClassName
 import ru.unit.orchestra_features.common.support.Feature
+import ru.unit.orchestra_features.processor.utils.PackageData
 
 class FeatureClass {
 
     companion object {
 
         fun name(featureModel: FeatureModel) = "Feature${featureModel.id}"
+
+        fun pack(
+            featureModel: FeatureModel,
+            packageData: PackageData
+        ) = "${packageData.name}.${name(featureModel)}"
     }
 
     fun generate(model: FeatureModel) = TypeSpec.classBuilder(

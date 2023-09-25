@@ -27,7 +27,7 @@ class DependentOnToggleProperty {
                 addParameter("value", Boolean::class.java)
                 addCode(
                     CodeBlock.synchronizedCodeBlock("this") {
-                        addStatement("field = value")
+                        addStatement("field·=·value")
                     }
                 )
             }.build()

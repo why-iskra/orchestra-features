@@ -66,12 +66,13 @@ class FeatureVisitor : KSEmptyVisitor<Unit, FeatureModel>() {
         }
 
         return FeatureModel(
-            name = name,
+            rawName = name,
             description = featureAnnotation.description,
             mutable = featureAnnotation.mutable,
             interactive = featureAnnotation.interactive,
             dependsOnClasses = dependsOnClasses,
             toggleable = toggleableAnnotation,
+            beautifyName = featureAnnotation.beautifyName,
             clazz = classDeclaration.toClassName().canonicalName,
             ksNode = classDeclaration,
             originalKSFile = classDeclaration.accept(FileVisitor(), Unit)!!

@@ -7,10 +7,11 @@ import ru.unit.orchestra_features.processor.generator.code.orchestra.OrchestraFi
 import ru.unit.orchestra_features.processor.generator.code.scope.ScopeFile
 import ru.unit.orchestra_features.processor.generator.validator.FeatureScopeValidator
 import ru.unit.orchestra_features.processor.model.FeatureScopeModel
+import ru.unit.orchestra_features.processor.utils.PackageData
 
 class Code(
     private val environment: SymbolProcessorEnvironment,
-    private val packageName: String
+    private val packageData: PackageData,
 ) {
 
     fun generateFiles(featureScopeModels: List<FeatureScopeModel>): List<FileSpec> {
@@ -20,14 +21,14 @@ class Code(
         return featureScopeModels.map { model ->
             ScopeFile().generate(
                 featureScopeModel = model,
-                packageName = packageName
+                packageData = packageData
             )
         } + OrchestraFile().generate(
             featureScopeModels = featureScopeModels,
-            packageName = packageName
+            packageData = packageData
         ) + FeatureFile().generate(
             featureScopeModels = featureScopeModels,
-            packageName = packageName
+            packageData = packageData
         )
     }
 }

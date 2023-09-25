@@ -2,6 +2,7 @@ package ru.unit.orchestra_features.processor.generator.code.scope
 
 import com.squareup.kotlinpoet.FileSpec
 import ru.unit.orchestra_features.processor.model.FeatureScopeModel
+import ru.unit.orchestra_features.processor.utils.PackageData
 
 class ScopeFile {
 
@@ -9,21 +10,21 @@ class ScopeFile {
 
         fun pack(
             model: FeatureScopeModel,
-            packageName: String
-        ) = model.originalKSFile.packageName.asString() + ".$packageName"
+            packageData: PackageData
+        ) = model.originalKSFile.packageName.asString() + ".${packageData.suffix}"
     }
 
     fun generate(
         featureScopeModel: FeatureScopeModel,
-        packageName: String
+        packageData: PackageData
     ) = FileSpec.get(
         packageName = pack(
             model = featureScopeModel,
-            packageName = packageName
+            packageData = packageData
         ),
         typeSpec = ScopeClass().generate(
             featureScopeModel = featureScopeModel,
-            packageName = packageName
+            packageData = packageData
         )
     )
 }

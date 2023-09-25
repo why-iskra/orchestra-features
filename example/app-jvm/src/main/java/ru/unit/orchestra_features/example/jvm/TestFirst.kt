@@ -2,8 +2,8 @@ package ru.unit.orchestra_features.example.jvm
 
 import ru.unit.orchestra_features.common.annotation.*
 
-@FeatureScope(dependsOn = [Scope2::class])
-class Scope1 {
+@FeatureScope(dependsOn = [TestSecond::class])
+class TestFirst {
 
     @Feature(name = "awd", description = "cvmkmvc", mutable = true, interactive = true)
     @DependsOn([sc.fsc::class, f2::class])

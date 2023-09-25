@@ -3,6 +3,7 @@ package ru.unit.orchestra_features.processor.generator.code.orchestra.property
 import com.squareup.kotlinpoet.PropertySpec
 import ru.unit.orchestra_features.processor.generator.code.scope.ScopeClass
 import ru.unit.orchestra_features.processor.model.FeatureScopeModel
+import ru.unit.orchestra_features.processor.utils.PackageData
 import ru.unit.orchestra_features.processor.utils.extension.asClassName
 import java.util.*
 
@@ -16,19 +17,19 @@ class ScopeProperty {
 
     fun generate(
         featureScopeModel: FeatureScopeModel,
-        packageName: String
+        packageData: PackageData
     ) = PropertySpec.builder(
         name = name(featureScopeModel),
         type = ScopeClass.pack(
             model = featureScopeModel,
-            packageName = packageName
+            packageData = packageData
         ).asClassName()
     ).apply {
         val className = ScopeClass.pack(
             model = featureScopeModel,
-            packageName = packageName
+            packageData = packageData
         ).asClassName()
 
-        delegate("lazy { %T() }", className)
+        delegate("lazy·{·%T()·}", className)
     }.build()
 }

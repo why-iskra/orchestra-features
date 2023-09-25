@@ -5,6 +5,7 @@ import ru.unit.orchestra_features.processor.generator.code.orchestra.function.In
 import ru.unit.orchestra_features.processor.generator.code.orchestra.property.InteractiveScopesProperty
 import ru.unit.orchestra_features.processor.generator.code.orchestra.property.ScopeProperty
 import ru.unit.orchestra_features.processor.model.FeatureScopeModel
+import ru.unit.orchestra_features.processor.utils.PackageData
 
 class OrchestraClass {
 
@@ -14,7 +15,7 @@ class OrchestraClass {
 
     fun generate(
         featureScopeModels: List<FeatureScopeModel>,
-        packageName: String
+        packageData: PackageData,
     ) = TypeSpec.objectBuilder(
         name = name()
     ).apply {
@@ -22,7 +23,7 @@ class OrchestraClass {
             addProperty(
                 ScopeProperty().generate(
                     featureScopeModel = model,
-                    packageName = packageName
+                    packageData = packageData
                 )
             )
         }

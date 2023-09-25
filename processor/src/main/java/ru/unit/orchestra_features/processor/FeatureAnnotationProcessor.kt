@@ -8,6 +8,7 @@ import com.squareup.kotlinpoet.ksp.writeTo
 import ru.unit.orchestra_features.common.annotation.FeatureScope
 import ru.unit.orchestra_features.processor.exception.ProcessorException
 import ru.unit.orchestra_features.processor.generator.Code
+import ru.unit.orchestra_features.processor.utils.PackageData
 import ru.unit.orchestra_features.processor.visitor.FeatureScopeVisitor
 import kotlin.reflect.KClass
 
@@ -47,9 +48,14 @@ class FeatureAnnotationProcessor(
             node.accept(FeatureScopeVisitor(), Unit)
         }
 
+        val packagePrefix = environment.options[PACKAGE_PREFIX_ARG]?.plus(".") ?: ""
+
         val files = Code(
             environment = environment,
-            packageName = PACKAGE
+            packageData = PackageData(
+                name = "$packagePrefix$PACKAGE",
+                suffix = PACKAGE
+            )
         ).generateFiles(featureScopeModels)
 
         val originalFiles = featureScopeModels.flatMap { featureScopeModel ->
@@ -75,6 +81,7 @@ class FeatureAnnotationProcessor(
 
     companion object {
 
+        const val PACKAGE_PREFIX_ARG = "orchestra-features.packagePrefix"
         const val PACKAGE = "orchestra_features.generated"
     }
 }
